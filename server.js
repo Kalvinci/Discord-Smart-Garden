@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-	res.send("Bot Server running :)");
+	res.send("Bot Server Running :)");
 });
 
 app.listen(PORT);

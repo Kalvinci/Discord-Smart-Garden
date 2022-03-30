@@ -12,7 +12,7 @@ client.on("interactionCreate", async (interaction) => {
 	const command = interaction.commandName;
 
 	if (command === "list-plants") {
-		interaction.reply("1. Basil\n2. Snake Plant");
+		await interaction.reply("1. Basil\n2. Snake Plant");
 	}
 });
 

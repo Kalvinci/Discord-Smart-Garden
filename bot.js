@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { Client, Intents } = require("discord.js");
+const { listPlants, plantInfo, setPlant } = require("./commandService");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -11,9 +12,23 @@ client.on("interactionCreate", async (interaction) => {
 	if (!interaction.isCommand()) return;
 
 	const command = interaction.commandName;
+	const options = interaction.options;
 
-	if (command === "list-plants") {
-		await interaction.reply("1. Basil\n2. Snake Plant");
+	let response = null;
+
+	switch (command) {
+		case "list-plants":
+			response = await listPlants();
+			await interaction.reply(response);
+			break;
+		case "plant-info":
+			response = await plantInfo(options);
+			await interaction.reply({ embeds: [response] });
+			break;
+		case "set-plant":
+			response = await setPlant(options);
+			await interaction.reply(response);
+			break;
 	}
 });
 

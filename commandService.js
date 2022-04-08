@@ -31,7 +31,7 @@ async function plantInfo(options) {
 		const rackId = options.getInteger("rack");
 		const { data } = await axios.get(`${SERVER_URL}/plantinfo/${rackId}`);
 		response = {
-			color: 0x12e385,
+			color: "0x12e385",
 			fields: [
 				{
 					name: "Rack",
@@ -96,7 +96,7 @@ async function setPlant(options) {
 			content: "Plant set successfully! :smile::potted_plant::thumbsup:",
 			embeds: [
 				{
-					color: 0x12e385,
+					color: "0x12e385",
 					fields: [
 						{
 							name: "Rack",

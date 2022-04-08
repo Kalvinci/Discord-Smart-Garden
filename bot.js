@@ -1,6 +1,12 @@
-require("dotenv").config();
 const { Client, Intents } = require("discord.js");
-const { listPlants, plantInfo, setPlant } = require("./commandService");
+const {
+	listPlants,
+	plantInfo,
+	setPlant,
+	editPlant,
+	removePlant,
+} = require("./commandService");
+require("dotenv").config();
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -27,6 +33,14 @@ client.on("interactionCreate", async (interaction) => {
 			break;
 		case "set-plant":
 			response = await setPlant(options);
+			await interaction.reply(response);
+			break;
+		case "edit-plant":
+			response = await editPlant(options);
+			await interaction.reply(response);
+			break;
+		case "remove-plant":
+			response = await removePlant(options);
 			await interaction.reply(response);
 			break;
 	}

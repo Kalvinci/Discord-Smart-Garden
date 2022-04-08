@@ -1,5 +1,5 @@
+const axios = require("axios");
 require("dotenv").config();
-const axios = require("axios").default;
 
 const SERVER_URL = process.env.SERVER_URL;
 
@@ -13,9 +13,9 @@ async function listPlants() {
 	let response = "";
 	try {
 		const { data } = await axios.get(`${SERVER_URL}/listplants`);
-		response = "Here you go :smiley: \n\n>>> __**Rack**__ \t __**Name**__";
+		response = "Here is the list :smiley:";
 		for (const plant of data) {
-			response += `\n${plant.rackId} \t\t\t${plant.name}`;
+			response += `\n>> \`Rack ${plant.rackId} has ${plant.name}\``;
 		}
 	} catch (error) {
 		const errorMsg = error.response.data;
@@ -144,7 +144,54 @@ async function setPlant(options) {
 	return response;
 }
 
+async function removePlant(options) {
+	let response = "";
+	try {
+		const rackId = options.getInteger("rack");
+		const { data } = await axios.post(`${SERVER_URL}/removeplant`, {
+			rackId,
+		});
+		response = {
+			content: `${data} :pensive:`,
+			embeds: [
+				{
+					image: {
+						url: "https://c.tenor.com/yOVhAId928MAAAAC/hello-l-kitty-pull.gif",
+					},
+				},
+			],
+		};
+	} catch (error) {
+		const errorMsg = error.response.data;
+		console.error(errorMsg);
+		response = errorMsg;
+	}
+	return response;
+}
+
+async function editPlant(options) {
+	let response = "";
+	try {
+		const rackId = options.getInteger("rack");
+		const property = options.getString("property");
+		const value = options.getString("value");
+		const { data } = await axios.post(`${SERVER_URL}/editplant`, {
+			rackId,
+			updateProperty: {
+				[property]: value,
+			},
+		});
+		response = `${data} :thumbsup:`;
+	} catch (error) {
+		const errorMsg = error.response.data;
+		console.error(errorMsg);
+		response = errorMsg;
+	}
+	return response;
+}
+
 exports.listPlants = listPlants;
 exports.plantInfo = plantInfo;
 exports.setPlant = setPlant;
-// exports.editPlant = editPlant;
+exports.removePlant = removePlant;
+exports.editPlant = editPlant;

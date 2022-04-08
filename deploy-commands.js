@@ -1,7 +1,7 @@
-require("dotenv").config();
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
+require("dotenv").config();
 
 const listplants = new SlashCommandBuilder()
 	.setName("list-plants")
@@ -14,7 +14,7 @@ const plantinfo = new SlashCommandBuilder()
 	.addIntegerOption((option) =>
 		option
 			.setName("rack")
-			.setDescription("Enter the rack Id where the plant is placed")
+			.setDescription("Enter the rack where the plant is placed")
 			.setRequired(true)
 	)
 	.toJSON();
@@ -49,7 +49,7 @@ const setplant = new SlashCommandBuilder()
 	.addStringOption((option) =>
 		option
 			.setName("light")
-			.setDescription("Enter the required lighting level")
+			.setDescription("Choose the required lighting level")
 			.setRequired(true)
 			.addChoice("Low", "Low")
 			.addChoice("Medium", "Medium")
@@ -59,12 +59,52 @@ const setplant = new SlashCommandBuilder()
 	.addIntegerOption((option) =>
 		option
 			.setName("rack")
-			.setDescription("Enter the rack Id where the plant is placed")
+			.setDescription("Enter the rack where the plant is placed")
 			.setRequired(true)
 	)
 	.toJSON();
 
-const commands = [listplants, plantinfo, setplant];
+const removeplant = new SlashCommandBuilder()
+	.setName("remove-plant")
+	.setDescription("Removes a plant from your Smart Garden")
+	.addIntegerOption((option) =>
+		option
+			.setName("rack")
+			.setDescription("Enter the rack where the plant is placed")
+			.setRequired(true)
+	)
+	.toJSON();
+
+const editplant = new SlashCommandBuilder()
+	.setName("edit-plant")
+	.setDescription("Edits plant details")
+	.addIntegerOption((option) =>
+		option
+			.setName("rack")
+			.setDescription("Enter the rack where the plant is placed")
+			.setRequired(true)
+	)
+	.addStringOption((option) =>
+		option
+			.setName("property")
+			.setDescription("Choose the property you would like to update")
+			.setRequired(true)
+			.addChoice("Rack", "rack")
+			.addChoice("Name", "name")
+			.addChoice("Temperature", "temperature")
+			.addChoice("Humidity", "humidity")
+			.addChoice("Water", "water")
+			.addChoice("Light", "light")
+	)
+	.addStringOption((option) =>
+		option
+			.setName("value")
+			.setDescription("Set the new appropriate value")
+			.setRequired(true)
+	)
+	.toJSON();
+
+const commands = [listplants, plantinfo, setplant, editplant, removeplant];
 
 const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
 

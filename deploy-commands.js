@@ -104,7 +104,45 @@ const editplant = new SlashCommandBuilder()
 	)
 	.toJSON();
 
-const commands = [listplants, plantinfo, setplant, editplant, removeplant];
+const water = new SlashCommandBuilder()
+	.setName("water")
+	.setDescription("Water your plant")
+	.addIntegerOption((option) =>
+		option
+			.setName("rack")
+			.setDescription("Enter the rack where the plant is placed")
+			.setRequired(true)
+	)
+	.toJSON();
+
+const light = new SlashCommandBuilder()
+	.setName("light")
+	.setDescription("Turn ON/OFF lights in a rack")
+	.addStringOption((option) =>
+		option
+			.setName("state")
+			.setDescription("Choose the state of the light")
+			.setRequired(true)
+			.addChoice("ON", "ON")
+			.addChoice("OFF", "OFF")
+	)
+	.addIntegerOption((option) =>
+		option
+			.setName("rack")
+			.setDescription("Enter the rack where the plant is placed")
+			.setRequired(true)
+	)
+	.toJSON();
+
+const commands = [
+	listplants,
+	plantinfo,
+	setplant,
+	editplant,
+	removeplant,
+	water,
+	light,
+];
 
 const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
 

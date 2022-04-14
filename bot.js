@@ -5,6 +5,8 @@ const {
 	setPlant,
 	editPlant,
 	removePlant,
+	waterPlant,
+	lightPlant,
 } = require("./commandService");
 require("dotenv").config();
 
@@ -41,6 +43,14 @@ client.on("interactionCreate", async (interaction) => {
 			break;
 		case "remove-plant":
 			response = await removePlant(options);
+			await interaction.reply(response);
+			break;
+		case "water":
+			response = await waterPlant(options);
+			await interaction.reply(response);
+			break;
+		case "light":
+			response = await lightPlant(options);
 			await interaction.reply(response);
 			break;
 	}

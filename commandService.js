@@ -190,8 +190,63 @@ async function editPlant(options) {
 	return response;
 }
 
+async function editPlant(options) {
+	let response = "";
+	try {
+		const rackId = options.getInteger("rack");
+		const property = options.getString("property");
+		const value = options.getString("value");
+		const { data } = await axios.post(`${SERVER_URL}/editplant`, {
+			rackId,
+			updateProperty: {
+				[property]: value,
+			},
+		});
+		response = `${data} :thumbsup:`;
+	} catch (error) {
+		const errorMsg = error.response.data;
+		console.error(errorMsg);
+		response = errorMsg;
+	}
+	return response;
+}
+
+async function waterPlant(options) {
+	let response = "";
+	try {
+		const rackId = options.getInteger("rack");
+		const { data } = await axios.post(`${SERVER_URL}/water`, { rackId });
+		response = `${data} :droplet: :thumbsup:`;
+	} catch (error) {
+		const errorMsg = error.response.data;
+		console.error(errorMsg);
+		response = errorMsg;
+	}
+	return response;
+}
+
+async function lightPlant(options) {
+	let response = "";
+	try {
+		const rackId = options.getInteger("rack");
+		const state = options.getString("state");
+		const { data } = await axios.post(`${SERVER_URL}/light`, {
+			rackId,
+			state,
+		});
+		response = `${data} :thumbsup:`;
+	} catch (error) {
+		const errorMsg = error.response.data;
+		console.error(errorMsg);
+		response = errorMsg;
+	}
+	return response;
+}
+
 exports.listPlants = listPlants;
 exports.plantInfo = plantInfo;
 exports.setPlant = setPlant;
 exports.removePlant = removePlant;
 exports.editPlant = editPlant;
+exports.waterPlant = waterPlant;
+exports.lightPlant = lightPlant;

@@ -28,23 +28,33 @@ const setplant = new SlashCommandBuilder()
 			.setDescription("Enter plant name")
 			.setRequired(true)
 	)
-	.addNumberOption((option) =>
+	.addStringOption((option) =>
 		option
 			.setName("temperature")
 			.setDescription("Enter the required temperature")
 			.setRequired(true)
+			.addChoice("Low", "Low")
+			.addChoice("Medium", "Medium")
+			.addChoice("High", "High")
 	)
-	.addNumberOption((option) =>
+	.addStringOption((option) =>
 		option
 			.setName("humidity")
 			.setDescription("Enter the required humidity")
 			.setRequired(true)
+			.addChoice("Low", "Low")
+			.addChoice("Medium", "Medium")
+			.addChoice("High", "High")
 	)
-	.addIntegerOption((option) =>
+	.addStringOption((option) =>
 		option
 			.setName("water")
 			.setDescription("Enter the required water in ml")
 			.setRequired(true)
+			.addChoice("Low", "Low")
+			.addChoice("Medium", "Medium")
+			.addChoice("High", "High")
+			.addChoice("Not required", "Not required")
 	)
 	.addStringOption((option) =>
 		option

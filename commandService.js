@@ -83,9 +83,9 @@ async function setPlant(options) {
 		const plantDetails = {
 			rackId: options.getInteger("rack"),
 			name: options.getString("name"),
-			temperature: options.getNumber("temperature"),
-			humidity: options.getNumber("humidity"),
-			water: options.getInteger("water"),
+			temperature: options.getString("temperature"),
+			humidity: options.getString("humidity"),
+			water: options.getString("water"),
 			light: options.getString("light"),
 		};
 		const { data } = await axios.post(
@@ -161,27 +161,6 @@ async function removePlant(options) {
 				},
 			],
 		};
-	} catch (error) {
-		const errorMsg = error.response.data;
-		console.error(errorMsg);
-		response = errorMsg;
-	}
-	return response;
-}
-
-async function editPlant(options) {
-	let response = "";
-	try {
-		const rackId = options.getInteger("rack");
-		const property = options.getString("property");
-		const value = options.getString("value");
-		const { data } = await axios.post(`${SERVER_URL}/editplant`, {
-			rackId,
-			updateProperty: {
-				[property]: value,
-			},
-		});
-		response = `${data} :thumbsup:`;
 	} catch (error) {
 		const errorMsg = error.response.data;
 		console.error(errorMsg);

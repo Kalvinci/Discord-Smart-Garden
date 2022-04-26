@@ -31,7 +31,7 @@ client.on("interactionCreate", async (interaction) => {
 			break;
 		case "plant-info":
 			response = await plantInfo(options);
-			await interaction.reply({ embeds: [response] });
+			await interaction.reply(response);
 			break;
 		case "set-plant":
 			response = await setPlant(options);

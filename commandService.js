@@ -30,45 +30,7 @@ async function plantInfo(options) {
 	try {
 		const rackId = options.getInteger("rack");
 		const { data } = await axios.get(`${SERVER_URL}/plantinfo/${rackId}`);
-		response = {
-			color: "0x12e385",
-			fields: [
-				{
-					name: "Rack",
-					value: data.rackId.toString(),
-					inline: true,
-				},
-				{
-					name: "Name",
-					value: data.name,
-					inline: true,
-				},
-				{
-					name: "Temperature",
-					value: data.temperature.toString(),
-					inline: true,
-				},
-				{
-					name: "Humidity",
-					value: data.humidity.toString(),
-					inline: true,
-				},
-				{
-					name: "Water",
-					value: data.water.toString(),
-					inline: true,
-				},
-				{
-					name: "Light",
-					value: data.light,
-					inline: true,
-				},
-			],
-			image: {
-				url: "https://www.thespruce.com/thmb/_6OfTexQcyd-3aW8Z1O2y78sc-Q=/2048x1545/filters:fill(auto,1)/snake-plant-care-overview-1902772-04-d3990a1d0e1d4202a824e929abb12fc1-349b52d646f04f31962707a703b94298.jpeg",
-			},
-			timestamp: new Date(),
-		};
+		response = data;
 	} catch (error) {
 		const errorMsg = error.response.data;
 		console.error(errorMsg);
@@ -85,7 +47,7 @@ async function setPlant(options) {
 			name: options.getString("name"),
 			temperature: options.getString("temperature"),
 			humidity: options.getString("humidity"),
-			water: options.getString("water"),
+			moisture: options.getString("moisture"),
 			light: options.getString("light"),
 		};
 		const { data } = await axios.post(
@@ -119,8 +81,8 @@ async function setPlant(options) {
 							inline: true,
 						},
 						{
-							name: "Water",
-							value: data.water.toString(),
+							name: "Moisture",
+							value: data.moisture.toString(),
 							inline: true,
 						},
 						{

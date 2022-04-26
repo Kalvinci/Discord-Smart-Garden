@@ -101,7 +101,7 @@ const editplant = new SlashCommandBuilder()
 			.addChoice("Name", "name")
 			.addChoice("Temperature", "temperature")
 			.addChoice("Humidity", "humidity")
-			.addChoice("Water", "water")
+			.addChoice("Moisture", "moisture")
 			.addChoice("Light", "light")
 	)
 	.addStringOption((option) =>
